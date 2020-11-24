@@ -1,4 +1,12 @@
+import { useEffect } from 'react'
+import { getPrefectures } from './lib/api'
+
 function App() {
+  useEffect(() => {
+    getPrefectures().then((res) => {
+      console.log(res)
+    })
+  }, [])
   return (
     <div className="App">
       <header>
