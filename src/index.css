@@ -1,0 +1,13 @@
+.prefCheckbox{
+  display: inline-block;
+  width: 8rem;
+  padding: 3px 0px;
+}
+
+.prefCheckboxContainer{
+  margin-top: 30px;
+}
+
+.selectPrefMessage{
+  margin-top: 50px;
+}

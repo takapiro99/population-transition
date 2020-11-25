@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import PrefectureCheckbox from './components/PrefectureCheckbox'
 import { getPrefectures } from './lib/api'
 
 const App = () => {
@@ -24,10 +25,13 @@ const App = () => {
           </a>
         </div>
       </nav>
-      <div className="content">
+      <div className="container selectPrefMessage">
+        <h4>1. 都道府県を選んでね</h4>
+      </div>
+      <div className="container prefCheckboxContainer">
         {prefectures.length &&
           prefectures.map((pref) => {
-            return <span key={pref.prefCode}>{pref.prefName}</span>
+            return <PrefectureCheckbox key={pref.prefCode} pref={pref} />
           })}
       </div>
     </div>
