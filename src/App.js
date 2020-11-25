@@ -4,6 +4,8 @@ import { getPrefectures } from './lib/api'
 
 const App = () => {
   const [prefectures, setPrefectures] = useState([])
+  const [selectedPrefectures, setSelectedPrefectures] = useState([])
+
   useEffect(() => {
     getPrefectures()
       .then((data) => {
@@ -15,6 +17,14 @@ const App = () => {
         alert('都道府県を取得できませんでした')
       })
   }, [])
+
+  const checkPref = (pref) => {
+    setSelectedPrefectures([...selectedPrefectures, pref])
+  }
+
+  const uncheckPref = (pref) => {
+    setSelectedPrefectures(selectedPrefectures.filter((item) => item.prefCode !== pref.prefCode))
+  }
 
   return (
     <div className="App">
@@ -30,18 +40,27 @@ const App = () => {
           <h4>1. 都道府県を選んでね</h4>
         </div>
         <div className="prefCheckboxContainer">
-          {prefectures.length &&
-            prefectures.map((pref) => {
-              return <PrefectureCheckbox key={pref.prefCode} pref={pref} />
-            })}
+          {prefectures.length
+            ? prefectures.map((pref) => {
+                return (
+                  <PrefectureCheckbox key={pref.prefCode} pref={pref} checkPref={checkPref} uncheckPref={uncheckPref} />
+                )
+              })
+            : 'loading screen'}
+        </div>
+        <div className="selectPrefMessage">
+          <h4>2. 人口推移を見よう！</h4>
         </div>
       </div>
-      <footer class="page-footer white">
-        <div class="footer-copyright">
-          <div class="container center grey-text text-darken-4">
-            RESAS（地域経済分析システム）を加工して作成
+      <footer className="page-footer white">
+        <div className="footer-copyright">
+          <div className="container center grey-text text-darken-4">
+            <a href="https://opendata.resas-portal.go.jp/" className="blue-text text-darken-3">
+              RESAS（地域経済分析システム）
+            </a>
+            を加工して作成
             <br />
-            <a class="grey-text text-darken-4 right" href="https://github.com/takapiro99">
+            <a className="blue-text text-darken-3 right" href="https://github.com/takapiro99">
               @takapiro99
             </a>
           </div>
