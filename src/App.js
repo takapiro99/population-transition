@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react'
+import { getPrefectures } from './lib/api'
 
-function App() {
+const App = () => {
+  const [prefectures, setPrefectures] = useState([])
+  useEffect(() => {
+    getPrefectures()
+      .then((data) => {
+        // console.log(data)
+        setPrefectures(data)
+      })
+      .catch((err, message) => {
+        console.log(err, message)
+        alert('都道府県を取得できませんでした')
+      })
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1>人口推移～</h1>
       </header>
+      <div className="content">
+        {prefectures.length &&
+          prefectures.map((pref) => {
+            return <span key={pref.prefCode}>{pref.prefName}</span>
+          })}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
