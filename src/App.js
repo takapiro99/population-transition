@@ -17,9 +17,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <header>
-        <h1>人口推移～</h1>
-      </header>
+      <nav>
+        <div className="nav-wrapper blue darken-2">
+          <a href="#_" className="brand-logo center">
+            人口推移～
+          </a>
+        </div>
+      </nav>
       <div className="content">
         {prefectures.length &&
           prefectures.map((pref) => {
