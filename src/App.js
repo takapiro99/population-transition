@@ -25,15 +25,28 @@ const App = () => {
           </a>
         </div>
       </nav>
-      <div className="container selectPrefMessage">
-        <h4>1. 都道府県を選んでね</h4>
+      <div className="container mainContainer">
+        <div className="selectPrefMessage">
+          <h4>1. 都道府県を選んでね</h4>
+        </div>
+        <div className="prefCheckboxContainer">
+          {prefectures.length &&
+            prefectures.map((pref) => {
+              return <PrefectureCheckbox key={pref.prefCode} pref={pref} />
+            })}
+        </div>
       </div>
-      <div className="container prefCheckboxContainer">
-        {prefectures.length &&
-          prefectures.map((pref) => {
-            return <PrefectureCheckbox key={pref.prefCode} pref={pref} />
-          })}
-      </div>
+      <footer class="page-footer white">
+        <div class="footer-copyright">
+          <div class="container center grey-text text-darken-4">
+            RESAS（地域経済分析システム）を加工して作成
+            <br />
+            <a class="grey-text text-darken-4 right" href="https://github.com/takapiro99">
+              @takapiro99
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

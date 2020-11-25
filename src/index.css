@@ -11,3 +11,7 @@
 .selectPrefMessage{
   margin-top: 50px;
 }
+
+.mainContainer{
+  min-height: 100vh;
+}
