@@ -1,21 +1,21 @@
-.prefCheckbox{
+.prefCheckbox {
   display: inline-block;
   width: 8rem;
   padding: 3px 0px;
 }
 
-.prefCheckboxContainer{
+.prefCheckboxContainer {
   margin-top: 30px;
 }
 
-.selectPrefMessage{
+.selectPrefMessage {
   margin-top: 50px;
 }
 
-.mainContainer{
+.mainContainer {
   min-height: 100vh;
 }
 
-#chartContainer{
+#chartContainer {
   margin-top: 50px;
 }
