@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import PrefectureCheckbox from './components/PrefectureCheckbox'
+import PopulationChart from './components/PopulationChart'
 import { getPopulation, getPrefectures } from './lib/api'
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
         <div className="selectPrefMessage">
           <h4>2. 人口推移を見よう！</h4>
         </div>
+        <PopulationChart rawData={selectedPrefectures} />
       </div>
       <footer className="page-footer white">
         <div className="footer-copyright">

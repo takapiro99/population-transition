@@ -4,6 +4,10 @@ const baseURL = 'https://opendata.resas-portal.go.jp/'
 
 const customHeaders = { 'X-API-KEY': process.env.REACT_APP_RESAS_API_KEY }
 
+/**
+ * get all prefectures from RESAS API
+ * @returns {Array} array of pref objects
+ */
 export const getPrefectures = async () => {
   const response = await axios.get(baseURL + 'api/v1/prefectures', {
     headers: customHeaders
@@ -21,6 +25,11 @@ export const getPrefectures = async () => {
   return new Error('cannot fetch prefecture data')
 }
 
+/**
+ * get population transition of given prefecture
+ * @param {Object} pref - prefObject
+ * @returns {Array} Array of data of total population
+ */
 export const getPopulation = async (pref) => {
   const res = await axios.get(baseURL + 'api/v1/population/composition/perYear', {
     headers: customHeaders,
