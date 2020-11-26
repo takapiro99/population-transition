@@ -15,3 +15,7 @@
 .mainContainer{
   min-height: 100vh;
 }
+
+#chartContainer{
+  margin-top: 50px;
+}

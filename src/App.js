@@ -51,7 +51,7 @@ const App = () => {
         <div className="selectPrefMessage">
           <h4>2. 人口推移を見よう！</h4>
         </div>
-        <PopulationChart />
+        <PopulationChart rawData={selectedPrefectures} />
       </div>
       <footer className="page-footer white">
         <div className="footer-copyright">

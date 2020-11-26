@@ -1,85 +1,74 @@
-import { useEffect, useRef, useState } from 'react'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
+import { useEffect, useState } from 'react'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100
+const groupByYear = (objectArray) => {
+  return objectArray
+    .reduce((acc, obj) => {
+      obj.data.forEach((item) => {
+        let index = acc.findIndex((i) => i && i.year === item.year)
+        if (index === -1) {
+          acc.push({ year: item.year })
+        }
+        index = acc.findIndex((i) => i && i.year === item.year)
+        acc[index][obj.pref.prefName] = item.value
+      })
+      return acc
+    }, [])
+    .sort((a, b) => a.year - b.year)
+}
+
+var stringToColour = (str) => {
+  var hash = 0
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash)
   }
-]
+  var colour = '#'
+  for (let i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xff
+    colour += ('00' + value.toString(16)).substr(-2)
+  }
+  return colour
+}
 
-const PopulationChart = () => {
-  const [chartContainerWidth, setChartContainerWidth] = useState(500)
-  // custom hooks断念した
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver((entry) => {
-      const width = entry[0].contentRect.width
-      // const height = entry[0].contentRect.height
-      setChartContainerWidth(width)
-    })
-    resizeObserver.observe(document.getElementById('chartContainer'))
-    return () => resizeObserver.disconnect()
-  })
+const PopulationChart = ({ rawData }) => {
+  const [chartData, setChartData] = useState([])
+  useEffect(() => setChartData(groupByYear(rawData)), [rawData])
+
+  if (!chartData.length) {
+    return <div>1. から都道府県を選んでね！</div>
+  }
 
   return (
     <div id="chartContainer">
-      <LineChart
-        width={chartContainerWidth}
-        height={600}
-        data={data}
-        margin={{
-          top: 5,
-          right: 6,
-          left: 6,
-          bottom: 5
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-      </LineChart>
+      <ResponsiveContainer width="100%" height={500}>
+        <LineChart
+          data={chartData}
+          margin={{
+            top: 5,
+            right: 6,
+            left: 30,
+            bottom: 50
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="year" label={{ value: '[年]', position: 'insideBottomRight', offset: -5 }} />
+          <YAxis label={{ value: '人口 [人]', angle: -90, offset: 80, position: 'insideRight' }} />
+          <Tooltip/>
+          <Legend verticalAlign="top" height={70}/>
+          {rawData.map((item) => {
+            return (
+              <Line
+                key={item.pref.prefName}
+                type="monotone"
+                dataKey={item.pref.prefName}
+                stroke={stringToColour(item.pref.prefName)}
+								strokeWidth={2}
+								isAnimationActive={false}
+              />
+            )
+          })}
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   )
 }
