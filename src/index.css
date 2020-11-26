@@ -1,22 +1,21 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.prefCheckbox {
+  display: inline-block;
+  width: 8rem;
+  padding: 3px 0px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+.prefCheckboxContainer {
+  margin-top: 30px;
 }
 
-header {
-  background-color: burlywood;
-  padding: 10px;
+.selectPrefMessage {
+  margin-top: 50px;
 }
 
-header h1 {
-  color: white;
-  max-width: 1200px;
-  margin: 0 auto;
+.mainContainer {
+  min-height: 100vh;
+}
+
+#chartContainer {
+  margin-top: 50px;
 }
