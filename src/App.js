@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import PrefectureCheckbox from './components/PrefectureCheckbox'
-import { getPrefectures } from './lib/api'
+import { getPopulation, getPrefectures } from './lib/api'
 
 const App = () => {
   const [prefectures, setPrefectures] = useState([])
@@ -8,22 +8,21 @@ const App = () => {
 
   useEffect(() => {
     getPrefectures()
-      .then((data) => {
-        // console.log(data)
-        setPrefectures(data)
-      })
-      .catch((err, message) => {
-        console.log(err, message)
-        alert('都道府県を取得できませんでした')
+      .then((data) => setPrefectures(data))
+      .catch((err) => {
+        console.error(err)
+        alert('都道府県を取得できませんでした。更新してみてね')
       })
   }, [])
 
   const checkPref = (pref) => {
-    setSelectedPrefectures([...selectedPrefectures, pref])
+    getPopulation(pref).then((data) => {
+      setSelectedPrefectures([...selectedPrefectures, data])
+    })
   }
 
   const uncheckPref = (pref) => {
-    setSelectedPrefectures(selectedPrefectures.filter((item) => item.prefCode !== pref.prefCode))
+    setSelectedPrefectures(selectedPrefectures.filter((item) => item.pref.prefCode !== pref.prefCode))
   }
 
   return (
