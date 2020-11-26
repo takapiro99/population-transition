@@ -10,6 +10,7 @@ export const getPrefectures = async () => {
   })
   // console.log(response)
   // status code is somehow always 200
+  // ここを共通化しておきたい
   if (response.data.message) {
     console.error(response.data.description)
     throw new Error(response.data.message)
@@ -18,4 +19,28 @@ export const getPrefectures = async () => {
     return response.data.result
   }
   return new Error('cannot fetch prefecture data')
+}
+
+export const getPopulation = async (pref) => {
+  const res = await axios.get(baseURL + 'api/v1/population/composition/perYear', {
+    headers: customHeaders,
+    params: {
+      prefCode: pref.prefCode,
+      cityCode: '-'
+    }
+  })
+  if (res.data.message) {
+    console.error(res.data.description)
+    throw new Error(res.data.message)
+  }
+  if (res.data === '400') {
+    throw new Error('invalid request?')
+  }
+  if (!res.data.result) {
+    // no data
+    console.log(res)
+    throw new Error('no content')
+  }
+  const data = { pref: pref, data: res.data.result.data[0].data }
+  return data
 }
