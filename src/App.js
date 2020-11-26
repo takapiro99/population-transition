@@ -31,7 +31,7 @@ const App = () => {
       <nav>
         <div className="nav-wrapper blue darken-2">
           <a href="#_" className="brand-logo center">
-            人口推移～
+            人口推移
           </a>
         </div>
       </nav>

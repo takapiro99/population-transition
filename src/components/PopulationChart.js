@@ -23,9 +23,8 @@ const groupByYear = (objectArray) => {
         let index = acc.findIndex((i) => i && i.year === item.year)
         if (index === -1) {
           acc.push({ year: item.year })
+          index = acc.findIndex((i) => i && i.year === item.year)
         }
-        // actual index
-        index = acc.findIndex((i) => i && i.year === item.year)
         acc[index][obj.pref.prefName] = item.value
       })
       return acc
